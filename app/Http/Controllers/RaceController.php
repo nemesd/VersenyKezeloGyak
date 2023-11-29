@@ -18,6 +18,8 @@ class RaceController extends Controller
             $this->validate($request, [
                 'name'=> 'required',
                 'year' => 'required',
+                'category' => 'required',
+                'description' => 'required',
             ]);
         } catch(Exception $e) {
             return response()->json(['message' => 'Hibás adat', 'type' => 'danger']);

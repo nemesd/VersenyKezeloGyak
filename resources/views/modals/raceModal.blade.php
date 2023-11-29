@@ -18,6 +18,14 @@
                     <input type="text" class="form-control" id="raceYear" placeholder="Verseny éve" name="raceYear">
                     <label for="raceYear">Verseny éve (2023-2050)</label>
                 </div>
+                <div class="form-floating mt-3 mb-3">
+                    <input type="text" class="form-control" id="raceCat" placeholder="Verseny kategóriája" name="raceCat">
+                    <label for="raceCat">Verseny kategóriája</label>
+                </div>
+                <div class="form-floating mt-3 mb-3">
+                    <input type="text" class="form-control" id="raceDesc" placeholder="Verseny leírása" name="raceDesc">
+                    <label for="raceDesc">Verseny leírása</label>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
