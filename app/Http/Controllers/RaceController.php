@@ -93,6 +93,36 @@ class RaceController extends Controller
     }
 
     /**
+     * Egy verseny elküldése
+     * @param int $raceId
+     * @return JsonResponse
+     */
+    public function infoRace(int $raceId) : JsonResponse {
+        $race = Race::find($raceId);
+        return response()->json(['race' => $race]);
+    }
+
+     /**
+     * Egy forduló elküldése
+     * @param int $roundId
+     * @return JsonResponse
+     */
+    public function infoRound(int $roundId) : JsonResponse {
+        $round = Round::find($roundId);
+        return response()->json(['round' => $round]);
+    }
+
+    /**
+    * Egy versenyző elküldése
+    * @param int $roundId
+    * @return JsonResponse
+    */
+    public function infoComp(int $compId) : JsonResponse {
+        $competitor = User::find($compId);
+        return response()->json(['competitor' => $competitor]);
+    }
+
+    /**
      * Versenyző felvétele egy adott fordulóhoz
      * @param Request $request
      * @return JsonResponse

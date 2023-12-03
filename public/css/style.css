@@ -1,3 +1,11 @@
 #racesTitle{
     display: none;
 }
+.infoModal{
+    text-decoration: none;
+    color: black;
+}
+.infoModal:hover{
+    color: rgb(0, 0, 255);
+    cursor: pointer;
+}

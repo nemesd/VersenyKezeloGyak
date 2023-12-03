@@ -9,7 +9,7 @@ function showCompetitors(roundid){
                 $.each(data.users, function (index, user) {
                     compDiv.append( // Versenyzők kilistázásához a html kód
                     '<li class="list-group-item">'+
-                        '<div class="comp-li" id="round'+user.id+'}}">'+
+                        '<div class="comp-li infoModal" id="round'+user.id+'" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoComp('+user.id+')">'+
                         user.name+
                         '</div>'+
                     '</li>'

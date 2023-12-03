@@ -21,6 +21,9 @@ Route::get('/showRaces', [RaceController::class, 'showRaces']);
 Route::get('/showRounds/{raceid}', [RaceController::class, 'showRounds']);
 Route::get('/showComp/{roundid}', [RaceController::class, 'showComp']);
 Route::get('/listComp', [RaceController::class, 'listComp']);
+Route::get('/infoRace/{raceid}', [RaceController::class, 'infoRace']);
+Route::get('/infoRound/{roundid}', [RaceController::class, 'infoRound']);
+Route::get('/infoComp/{compid}', [RaceController::class, 'infoComp']);
 
 Route::post('/addRace', [RaceController::class, 'addRace']);
 Route::post('/addRound', [RaceController::class, 'addRound']);

@@ -10,7 +10,7 @@ function showRounds(raceid){
                     roundsDiv.append( // Fordulók kilistázásához a html kód
                     '<li class="list-group-item">'+
                         '<div class="row">'+
-                            '<div class="col-4 round-li" id="round'+round.id+'}}"'+ 'data-roundid="'+round.id+'">'+
+                            '<div class="col-4 round-li infoModal" id="round'+round.id+'}}"'+ 'data-roundid="'+round.id+'" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoRound('+round.id+')">'+
                                 round.name+
                             '</div>'+
                             '<div class="col-4">'+

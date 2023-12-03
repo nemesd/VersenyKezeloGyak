@@ -26,6 +26,7 @@
         @include('modals/raceModal')
         @include('modals/roundModal')
         @include('modals/competitorModal')
+        @include('modals/info')
     </div>
 </body>
 </html>

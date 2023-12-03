@@ -13,7 +13,9 @@ function showRaces(){
                         '<li class="list-group-item">'+
                         '<div class="row justify-content-between m-2">'+
                             '<div class="col-8 race-li" id="race'+race.id+'">'+
-                                race.name+' ('+race.year+')'+
+                                '<div class="infoModal" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoRace('+race.id+')">'+
+                                    race.name+' ('+race.year+')'+
+                                '</div>'+
                             '</div>'+
                             '<input type="button" class="btn btn-primary col-4 newRoundBtn" value="Új forduló" data-bs-toggle="modal" data-bs-target="#roundModal" onclick="getRaceId('+race.id+')">'+
                         '</div>'+
