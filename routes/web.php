@@ -16,13 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main', [
-        'races' => Race::all(),
-        'rounds' => Round::all(),
-    ]);
-});
+Route::get('/', function () { return view('main'); });
+Route::get('/showRaces', [RaceController::class, 'showRaces']);
+Route::get('/showRounds/{raceid}', [RaceController::class, 'showRounds']);
+Route::get('/showComp/{roundid}', [RaceController::class, 'showComp']);
+Route::get('/listComp', [RaceController::class, 'listComp']);
+
 Route::post('/addRace', [RaceController::class, 'addRace']);
 Route::post('/addRound', [RaceController::class, 'addRound']);
-Route::get('/showRounds/{raceid}', [RaceController::class, 'showRounds']);
-Route::get('/showRaces', [RaceController::class, 'showRaces']);
+Route::post('/addComp', [RaceController::class, 'addComp']);

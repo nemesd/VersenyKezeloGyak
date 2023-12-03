@@ -26,6 +26,7 @@ function newPopUpAlert(message, type = 'success') {
 function newInLineAlert(message){
     $('.inLineAlert').text(message);
     $('.inLineAlert').show();
+    setTimeout(hideInLineAlert,3000);
 }
 // Eltünteti a beépített alert mezőt
 function hideInLineAlert(){

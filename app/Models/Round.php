@@ -14,4 +14,7 @@ class Round extends Model
     public function race(){
         return $this->belongsTo(Race::class, 'id', 'race_id');
     }
+    public function competitors(){
+        return $this->hasMany(Competitor::class, 'round_id', 'id');
+    }
 }

@@ -14,13 +14,18 @@ return new class extends Migration
         Schema::table('races', function (Blueprint $table) {
             $table->string('category');
             $table->string('description');
+            $table->unique(['name', 'year']);
         });
         Schema::table('rounds', function (Blueprint $table) {
             $table->foreign('race_id')->references('id')->on('races');
+            $table->unique(['name', 'race_id']);
         });
-        Schema::table('cometitors', function (Blueprint $table) {
-            $table->foreign('users_id')->references('id')->on('users');
-            $table->foreign('rounds_id')->references('id')->on('rounds');
+
+        Schema::table('competitors', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('round_id')->references('id')->on('rounds');
+            $table->unique(['user_id', 'round_id']);
+            $table->id();
         });
     }
 

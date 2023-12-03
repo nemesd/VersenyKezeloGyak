@@ -4,20 +4,27 @@ function showRounds(raceid){
         type: 'GET',
         url: '/showRounds/' + raceid,
         success: function (data) {
-            //let roundsDiv = $('#race'+raceid);
-            roundsDiv.empty();
-
-            $.each(data.rounds, function (index, round) {
-                roundsDiv.append( // Versenyek kilistázásához a html kód
-                '<li class="list-group-item">'+
-                    '<div class="row">'+
-                        '<div class="col-2 round-li" id="round'+round.id+'}}"'+ 'data-roundid="'+round.id+'">'+
-                            round.name+
+            if(data.rounds.length != 0){
+                roundsDiv.empty();
+                $.each(data.rounds, function (index, round) {
+                    roundsDiv.append( // Fordulók kilistázásához a html kód
+                    '<li class="list-group-item">'+
+                        '<div class="row">'+
+                            '<div class="col-4 round-li" id="round'+round.id+'}}"'+ 'data-roundid="'+round.id+'">'+
+                                round.name+
+                            '</div>'+
+                            '<div class="col-4">'+
+                                '<input type="button" class="btn btn-primary mx-1" value="Új versenyző" data-bs-toggle="modal" data-bs-target="#compModal" onclick="getRoundIdForNewComp('+round.id+')">'+
+                            '</div>'+
                         '</div>'+
-                    '</div>'+
-                '</li>'
-                );
-            });
+                        '<ul>'+
+                            '<div id="competitorsOf'+round.id+'"></div>'+
+                        '</ul>'+
+                    '</li>'
+                    );
+                    showCompetitors(round.id);
+                });
+            }
         }
     });
 }

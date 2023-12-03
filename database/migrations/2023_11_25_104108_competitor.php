@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cometitors', function (Blueprint $table) {
-            $table->foreignId('users_id');
-            $table->foreignId('rounds_id');
+        Schema::create('competitors', function (Blueprint $table) {
+            $table->foreignId('user_id');
+            $table->foreignId('round_id');
             $table->timestamps();
         });
     }
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('competitors');
     }
 };

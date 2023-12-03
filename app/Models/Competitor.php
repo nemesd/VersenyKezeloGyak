@@ -11,5 +11,10 @@ class Competitor extends Model
         'user_id',
         'round_id',
     ];
-
+    public function round(){
+        return $this->belongsTo(Round::class, 'id', 'round_id');
+    }
+    public function user(){
+        return $this->belongsTo(User::class, 'id', 'user_id');
+    }
 }

@@ -26,16 +26,15 @@ function addRound(){
             if(response.type == 'danger'){
                 newInLineAlert(response.message, response.type);
             } else {
+                showRounds(raceid);
                 $('#roundModal').modal('hide');
                 $('#roundName').val('');
-                hideInLineAlert();
                 newPopUpAlert(response.message);
             }
-            showRaces();
         },
         error: function(error) {
             console.error('Error:', error);
-            newInLineAlert('Sikertelen felvétel AJAX', 'danger');
+            newInLineAlert('Sikertelen felvétel', 'danger');
         }
     })
 }

@@ -10,7 +10,7 @@ function showRaces(){
                 racesDiv.empty();
                 $.each(data.races, function (index, race) {
                     racesDiv.append( // Versenyek kilistázásához a html kód
-                        ' <li class="list-group-item">'+
+                        '<li class="list-group-item">'+
                         '<div class="row justify-content-between m-2">'+
                             '<div class="col-8 race-li" id="race'+race.id+'">'+
                                 race.name+' ('+race.year+')'+
@@ -23,6 +23,10 @@ function showRaces(){
                     racesDiv.append('</ul>\n</li>');
                 });
             }
+        },
+        error: function(error) {
+            racesDiv.append('Error:', error.responseText);
+            console.error('Error:', error);
         }
     });
 }

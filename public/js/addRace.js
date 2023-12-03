@@ -31,17 +31,19 @@ function addRace(){
             if(response.type == 'danger'){
                 newInLineAlert(response.message, response.type);
             } else {
+                showRaces();
                 $('#raceModal').modal('hide');
                 $('#raceName').val('');
                 $('#raceYear').val('');
+                $('#raceCat').val('');
+                $('#raceDesc').val('');
                 hideInLineAlert();
                 newPopUpAlert(response.message);
             }
-            showRaces();
         },
         error: function(error) {
             console.error('Error:', error);
-            newInLineAlert('Sikertelen felvétel AJAX', 'danger');
+            newInLineAlert('Sikertelen felvétel', 'danger');
         }
     })
 }
