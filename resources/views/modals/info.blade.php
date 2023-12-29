@@ -1,4 +1,4 @@
-<!-- Race info Modal -->
+<!-- Info Modal -->
 <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

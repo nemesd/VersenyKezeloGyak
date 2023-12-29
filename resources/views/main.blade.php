@@ -2,12 +2,11 @@
 <html lang="hu">
 <head>
     @include('header/head')
-    <title>Verseny Kezelő</title>
 </head>
 <body>
+    @include('navbar/navbar')
     <div class="container">
-        <h1>Verseny Kezelő</h1>
-        <input type="button" value="Új verseny" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#raceModal">
+        <div id="newRaceBtn"></div>
 
         <div class="pt-2">
             <h2 class="pb-2" id="racesTitle">Versenyek:</h2>
@@ -23,10 +22,13 @@
         <div id="alertContainer" class="position-fixed top-0 end-0 p-3">
             <!-- Értesítések helye -->
         </div>
+
+        <!-- Felugró abalakok -->
         @include('modals/raceModal')
         @include('modals/roundModal')
         @include('modals/competitorModal')
         @include('modals/info')
+        @include('modals/loginModal')
     </div>
 </body>
 </html>

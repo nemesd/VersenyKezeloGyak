@@ -59,4 +59,22 @@ function infoComp(compId){
         }
     });
 }
+function infoUser(){
+    modalLabel.empty();
+    modalLabel.append('Felhasználó:');
+    modalBody.empty()
+    modalBody.append(
+    '<div class="pb-3"><strong>Neve:</strong> '+loginDetails.name+'</div>\n'+
+    '<div class="pb-3"><strong>E-mail:</strong> '+loginDetails.email+'</div>\n'+
+    '<div class="pb-3"><strong>Születési éve:</strong> '+loginDetails.birthyear+'</div>\n'
+    );
+    if(loginDetails.gender){
+        modalBody.append('<div class="pb-3"><strong>Neme:</strong> Nő</div>');
+    } else {
+        modalBody.append('<div class="pb-3"><strong>Neme:</strong> Férfi</div>');
+    }
+    if(loginDetails.admin){
+        modalBody.append('<div class="pb-3 text-success">ADMIN<div>')
+    }
+}
 

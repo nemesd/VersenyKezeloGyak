@@ -9,18 +9,32 @@ function showRaces(){
                 $('#racesTitle').show();
                 racesDiv.empty();
                 $.each(data.races, function (index, race) {
-                    racesDiv.append( // Versenyek kilistázásához a html kód
-                        '<li class="list-group-item">'+
-                        '<div class="row justify-content-between m-2">'+
-                            '<div class="col-8 race-li" id="race'+race.id+'">'+
-                                '<div class="infoModal" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoRace('+race.id+')">'+
-                                    race.name+' ('+race.year+')'+
+                    if(getCookie('admin') == 1){
+                        racesDiv.append( // Versenyek kilistázásához a html kód
+                            '<li class="list-group-item">'+
+                            '<div class="row justify-content-between m-2">'+
+                                '<div class="col-8 race-li" id="race'+race.id+'">'+
+                                    '<div class="infoModal" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoRace('+race.id+')">'+
+                                        race.name+' ('+race.year+')'+
+                                    '</div>'+
+                                '</div>'+
+                                '<input type="button" class="btn btn-primary col-4 newRoundBtn" value="Új forduló" data-bs-toggle="modal" data-bs-target="#roundModal" onclick="getRaceId('+race.id+')">'+
+                            '</div>'+
+                            '<ul id="roundsOf'+race.id+'">'
+                        );
+                    } else {
+                        racesDiv.append( // Versenyek kilistázásához a html kód
+                            '<li class="list-group-item">'+
+                            '<div class="row justify-content-between m-2">'+
+                                '<div class="col-8 race-li" id="race'+race.id+'">'+
+                                    '<div class="infoModal" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoRace('+race.id+')">'+
+                                        race.name+' ('+race.year+')'+
+                                    '</div>'+
                                 '</div>'+
                             '</div>'+
-                            '<input type="button" class="btn btn-primary col-4 newRoundBtn" value="Új forduló" data-bs-toggle="modal" data-bs-target="#roundModal" onclick="getRaceId('+race.id+')">'+
-                        '</div>'+
-                        '<ul id="roundsOf'+race.id+'">'
-                    );
+                            '<ul id="roundsOf'+race.id+'">'
+                        );
+                    }
                     showRounds(race.id);
                     racesDiv.append('</ul>\n</li>');
                 });

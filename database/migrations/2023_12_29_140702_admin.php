@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('races', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('year');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('admin');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('races');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('admin');
+        });
     }
 };
