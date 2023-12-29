@@ -1,7 +1,6 @@
 let loginDetails="";
 $('#emailLogin').val('');
 $('#pwdLogin').val('');
-console.log(document.cookie);
 if(getCookie('name') != ""){
     $('#loggedOut').hide();
     $('#loggedIn').show();
@@ -65,7 +64,6 @@ function login(){
         }
     });
     showRaces();
-    console.log(document.cookie);
 }
 
 function logout(){

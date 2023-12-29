@@ -13,9 +13,11 @@ function listCompetitors(){
         success: function (data) {
             compSelect.empty();
             $.each(data.users, function (index, user) {
-                compSelect.append( // Versenyzők kilistázásához a html kód
-                    '<option value="'+user.id+'">'+user.name+'</option>'
-                );
+                if(user.admin == 0){
+                    compSelect.append( // Versenyzők kilistázásához a html kód
+                        '<option value="'+user.id+'">'+user.name+'</option>'
+                    );
+                }
             });
         }
     });
