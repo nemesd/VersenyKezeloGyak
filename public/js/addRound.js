@@ -1,5 +1,11 @@
 let raceid;
 
+$('#roundName').keypress(function (e){
+    if(e.which == 13){
+        addRound();
+    }
+});
+
 function getRaceId(id){
     raceid = id;
 }

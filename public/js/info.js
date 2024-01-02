@@ -1,6 +1,9 @@
 const modalLabel = $('#infoModalLabel');
 const modalBody = $('#infoModalBody');
 
+// INFO MODAL ADATAINEK KITÖLTÉSE
+
+//Versenyhez adatok
 function infoRace(raceId){
     $.ajax({
         type: 'GET',
@@ -13,12 +16,13 @@ function infoRace(raceId){
             '<div class="pb-3"><strong>Neve:</strong> '+data.race.name+'</div>'+
             '<div class="pb-3"><strong>Éve:</strong> '+data.race.year+'</div>'+
             '<div class="pb-3"><strong>Kategória:</strong> '+data.race.category+'</div>'+
-            '<div class="pb-3"><strong>Leírása:</strong> '+data.race.description+'</div>'
+            '<div class="pb-3"><strong>Leírás:</strong> '+data.race.description+'</div>'
             );
         }
     });
 }
 
+//Fordulókhoz adatok
 function infoRound(roundId){
     $.ajax({
         type: 'GET',
@@ -34,6 +38,7 @@ function infoRound(roundId){
     });
 }
 
+//Versenyzőkhőz adat
 function infoComp(compId){
     $.ajax({
         type: 'GET',
@@ -59,8 +64,9 @@ function infoComp(compId){
         }
     });
 }
+
+//Felhasználói adatok
 function infoUser(){
-    console.log(loginDetails);
     modalLabel.empty();
     modalLabel.append('Felhasználó:');
     modalBody.empty()

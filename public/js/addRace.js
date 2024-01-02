@@ -1,3 +1,11 @@
+$('#raceName, #raceYear, #raceCat, #raceDesc').keypress(function (e){
+    if(e.which == 13){
+        addRace();
+    }
+});
+
+
+//Verseny hozzáadása
 function addRace(){
     const name = $('#raceName').val();
     const year = $('#raceYear').val();

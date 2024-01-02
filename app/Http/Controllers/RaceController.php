@@ -33,9 +33,9 @@ class RaceController extends Controller
 
         $race = Race::Create($request->all());
         if($race){
-            return response()->json(['message' => 'Adat sikeresen hozzáadva']);
+            return response()->json(['message' => 'Verseny sikeresen hozzáadva']);
         } else {
-            return response()->json(['message' => 'Adatot nem sikerült felvenni CONTROLLER', 'type' => 'danger']);
+            return response()->json(['message' => 'Versenyt nem sikerült felvenni CONTROLLER', 'type' => 'danger']);
         }
     }
 
@@ -58,9 +58,9 @@ class RaceController extends Controller
 
         $race = Round::Create($request->all());
         if($race){
-            return response()->json(['message' => 'Adat sikeresen hozzáadva']);
+            return response()->json(['message' => 'Forduló sikeresen hozzáadva']);
         } else {
-            return response()->json(['message' => 'Adatot nem sikerült felvenni CONTROLLER', 'type' => 'danger']);
+            return response()->json(['message' => 'Fordulót nem sikerült felvenni CONTROLLER', 'type' => 'danger']);
         }
     }
 
@@ -140,9 +140,9 @@ class RaceController extends Controller
 
         $competitor = Competitor::Create($request->all());
         if($competitor){
-            return response()->json(['message' => 'Adat sikeresen hozzáadva']);
+            return response()->json(['message' => 'Versenyző sikeresen hozzáadva']);
         } else {
-            return response()->json(['message' => 'Adatot nem sikerült felvenni CONTROLLER', 'type' => 'danger']);
+            return response()->json(['message' => 'Versenyzőt nem sikerült felvenni', 'type' => 'danger']);
         }
     }
 

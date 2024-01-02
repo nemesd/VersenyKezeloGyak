@@ -6,6 +6,7 @@ function getRoundIdForNewComp(id){
     listCompetitors();
 }
 
+//Versenyzők kiválasztásához lista
 function listCompetitors(){
     $.ajax({
         type: 'GET',
@@ -23,6 +24,7 @@ function listCompetitors(){
     });
 }
 
+//VEresenyző hozzáadása
 function addCompetitor(){
     const competitorId = compSelect.val();
     $.ajaxSetup({

@@ -7,6 +7,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="loginModalBody">
+                <div class="alert alert-danger inLineAlert">
+                    {{-- Hibaüzenet helye --}}
+                </div>
                 <div class="form-floating mb-3 mt-3">
                     <input type="text" class="form-control" id="emailLogin" placeholder="Email" name="email">
                     <label for="email">Email</label>

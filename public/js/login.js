@@ -16,6 +16,13 @@ if(getCookie('name') != ""){
     $('#userDetails').text(loginDetails.name);
     admin();
 }
+
+$('#emailLogin, #pwdLogin').keypress(function (e){
+    if(e.which == 13){
+        login();
+    }
+});
+
 function login(){
     $.ajaxSetup({
         headers: {
@@ -39,6 +46,7 @@ function login(){
                 $('#loggedOut').hide();
                 $('#loggedIn').show();
                 $('#userDetails').text(data.name);
+                newPopUpAlert('Sikeres bejelentezés');
 
                 loginDetails = {
                     'name': data.name,
@@ -47,6 +55,8 @@ function login(){
                     'gender': data.name,
                     'admin': data.admin
                 };
+
+                //Cookiek beálítása a user adatokkal
                 setCookie('name', data.name, 1);
                 setCookie('email', data.email, 1);
                 setCookie('birthyear', data.birthyear, 1);
@@ -54,32 +64,40 @@ function login(){
                 setCookie('admin', data.admin, 1);
 
                 admin();
+                showRaces();
             } else {
-                // Handle failed login
-                console.log(data.message);
+                newInLineAlert('Hibás email vagy jelszó', 'danger');
             }
         },
         error: function (error) {
             console.log('AJAX error:', error);
         }
     });
-    showRaces();
 }
 
+//Kijelentkezés
 function logout(){
     $('#loggedOut').show();
     $('#loggedIn').hide();
+
+    //User adatok törlése a cookiekból
     delCookie('name');
     delCookie('email');
     delCookie('birthyear');
     delCookie('gender');
     delCookie('admin');
     $('#newRace').empty();
+
+    //User adatok törlése a js változóból
     loginDetails="";
     admin();
+
+    //Versenyek újra listázása
     showRaces();
+    newPopUpAlert('Kijelentkezve!');
 }
 
+//Megnézi hogy admin e user és ha igen beépíti az admin által használható gombokat ha nem akkor eltávolítja
 function admin(){
     if(getCookie('admin') == 1){
         $('#newRaceBtn').append('<input type="button" value="Új verseny" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#raceModal">');
