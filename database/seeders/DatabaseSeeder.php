@@ -26,5 +26,16 @@ class DatabaseSeeder extends Seeder
             'gender' => 0,
             'admin' => 1
         ]);
+
+        // Fix normal user
+        \App\Models\User::factory()->create([
+            'name' => 'Nagy Béla',
+            'email' => 'user@user.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('user'),
+            'birthyear' => '1990',
+            'gender' => 0,
+            'admin' => 0
+        ]);
     }
 }
