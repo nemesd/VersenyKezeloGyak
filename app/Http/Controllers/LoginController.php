@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
@@ -21,9 +19,19 @@ class LoginController extends Controller
         $user = User::where('email', $request['email'])->first(); //Adatbázisból kikeresés
 
         if($user && password_verify($request['password'], $user->password)){ //Jelszó egyeztetés
-            return response()->json(['success' => true, 'name' => $user->name, 'email' => $user->email, 'birthyear' => $user->birthyear, 'gender' => $user->gender, 'admin' => $user->admin]);
+            return response()->json([
+                'success' => true,
+                'name' => $user->name,
+                'email' => $user->email,
+                'birthyear' => $user->birthyear,
+                'gender' => $user->gender,
+                'admin' => $user->admin
+            ]);
         } else {
-            return response()->json(['success' => false, 'message' => 'Invalid login credentials']);
+            return response()->json([
+                'success' => false, 
+                'message' => 'Invalid login credentials'
+            ]);
         }
     }
 }

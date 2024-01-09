@@ -7,7 +7,7 @@ function showCompetitors(roundid){
             if(data.users.length != 0){
                 compDiv.empty();
                 $.each(data.users, function (index, user) {
-                    if(getCookie('name') == user.name){
+                    if(getCookie('name') === user.name){
                         compDiv.append( // Versenyzők kilistázásához a html kód
                         '<li class="list-group-item">'+
                             '<div class="comp-li infoModal text-primary" id="round'+user.id+'" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoComp('+user.id+')">'+

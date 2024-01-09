@@ -14,7 +14,7 @@ function listCompetitors(){
         success: function (data) {
             compSelect.empty();
             $.each(data.users, function (index, user) {
-                if(user.admin == 0){
+                if(user.admin === 0){
                     compSelect.append( // Versenyzők kilistázásához a html kód
                         '<option value="'+user.id+'">'+user.name+'</option>'
                     );
@@ -24,7 +24,7 @@ function listCompetitors(){
     });
 }
 
-//VEresenyző hozzáadása
+//Veresenyző hozzáadása
 function addCompetitor(){
     const competitorId = compSelect.val();
     $.ajaxSetup({
@@ -40,14 +40,13 @@ function addCompetitor(){
             round_id: roundId,
         },
         success: function (response) {
-            if(response.type == 'danger'){
-                newInLineAlert(response.message, response.type);
+            if(response.type === 'danger'){
+                newInLineAlert(response.message);
             } else {
                 showCompetitors(roundId);
                 $('#compModal').modal('hide');
                 newPopUpAlert(response.message);
             }
-            hideInLineAlert();
         },
         error: function(error) {
             console.error('Error:', error);

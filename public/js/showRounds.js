@@ -7,7 +7,7 @@ function showRounds(raceid){
             if(data.rounds.length != 0){
                 roundsDiv.empty();
                 $.each(data.rounds, function (index, round) {
-                    if(getCookie('admin') == 1){
+                    if(getCookie('admin') === 1){
                         roundsDiv.append( // Fordulók kilistázásához a html kód
                         '<li class="list-group-item">'+
                             '<div class="row">'+

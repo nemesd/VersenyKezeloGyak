@@ -69,8 +69,7 @@ class RaceController extends Controller
      * @return JsonResponse
      */
     public function showRounds(int $raceid) : JsonResponse {
-        $race = Race::find($raceid);
-        $rounds = $race->rounds;
+        $rounds = Round::where('race_id', $raceid)->get();
         return response()->json(['rounds' => $rounds]);
     }
     
@@ -79,7 +78,7 @@ class RaceController extends Controller
      * @return JsonResponse
      */
     public function listComp() : JsonResponse {
-        $users = User::all();
+        $users = User::orderBy('name')->get();
         return response()->json(['users' => $users]);
     }
     
@@ -128,21 +127,32 @@ class RaceController extends Controller
      * @return JsonResponse
      */
     public function addComp(Request $request) : JsonResponse {
-        try{
+        try {
             // Validáljuk az adatokat
             $this->validate($request, [
-                'user_id'=> 'required',
+                'user_id' => 'required',
                 'round_id' => 'required',
             ]);
-        } catch(Exception $e) {
+    
+            // Ellenőrizzük, hogy a versenyző már fel van-e véve az adott fordulóba
+            $existingCompetitor = Competitor::where('user_id', $request->user_id)
+                                            ->where('round_id', $request->round_id)
+                                            ->first();
+    
+            if ($existingCompetitor) {
+                return response()->json(['message' => 'A versenyző már fel van véve az adott fordulóba', 'type' => 'danger']);
+            }
+    
+            // Ha nem létezik, akkor hozzáadjuk
+            $competitor = Competitor::create($request->all());
+    
+            if ($competitor) {
+                return response()->json(['message' => 'Versenyző sikeresen hozzáadva']);
+            } else {
+                return response()->json(['message' => 'Versenyzőt nem sikerült felvenni', 'type' => 'danger']);
+            }
+        } catch (\Exception $e) {
             return response()->json(['message' => 'Hibás adat', 'type' => 'danger']);
-        }
-
-        $competitor = Competitor::Create($request->all());
-        if($competitor){
-            return response()->json(['message' => 'Versenyző sikeresen hozzáadva']);
-        } else {
-            return response()->json(['message' => 'Versenyzőt nem sikerült felvenni', 'type' => 'danger']);
         }
     }
 

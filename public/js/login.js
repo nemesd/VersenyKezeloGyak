@@ -18,12 +18,18 @@ if(getCookie('name') != ""){
 }
 
 $('#emailLogin, #pwdLogin').keypress(function (e){
-    if(e.which == 13){
+    if(e.which === 13){
         login();
     }
 });
 
 function login(){
+    let email = $('#emailLogin').val();
+    let pwd = $('#pwdLogin').val();
+    if( email === '' ||  pwd === ''){
+        newInLineAlert('Add meg az emailt és jelszót is!');
+        return;
+    }
     $.ajaxSetup({
         headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -63,6 +69,8 @@ function login(){
                 setCookie('gender', data.gender, 1);
                 setCookie('admin', data.admin, 1);
 
+                
+
                 admin();
                 showRaces();
             } else {
@@ -71,6 +79,7 @@ function login(){
         },
         error: function (error) {
             console.log('AJAX error:', error);
+            newInLineAlert('Hiba történt!', 'danger');
         }
     });
 }
@@ -99,7 +108,7 @@ function logout(){
 
 //Megnézi hogy admin e user és ha igen beépíti az admin által használható gombokat ha nem akkor eltávolítja
 function admin(){
-    if(getCookie('admin') == 1){
+    if(getCookie('admin') === 1){
         $('#newRaceBtn').append('<input type="button" value="Új verseny" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#raceModal">');
     } else {
         $('#newRaceBtn').empty();

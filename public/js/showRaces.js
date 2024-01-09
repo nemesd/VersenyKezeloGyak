@@ -9,7 +9,7 @@ function showRaces(){
                 $('#racesTitle').show();
                 racesDiv.empty();
                 $.each(data.races, function (index, race) {
-                    if(getCookie('admin') == 1){
+                    if(getCookie('admin') === 1){
                         racesDiv.append( // Versenyek kilistázásához a html kód
                             '<li class="list-group-item">'+
                             '<div class="row justify-content-between m-2">'+
@@ -42,6 +42,7 @@ function showRaces(){
         },
         error: function(error) {
             racesDiv.append('Error:', error.responseText);
+            newPopUpAlert('Hiba történt!', 'danger');
             console.error('Error:', error);
         }
     });

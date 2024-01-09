@@ -1,5 +1,5 @@
 $('#raceName, #raceYear, #raceCat, #raceDesc').keypress(function (e){
-    if(e.which == 13){
+    if(e.which === 13){
         addRace();
     }
 });
@@ -11,7 +11,7 @@ function addRace(){
     const year = $('#raceYear').val();
     const cat = $('#raceCat').val();
     const desc = $('#raceDesc').val();
-    if(name == '' || year == '' || cat == '' || desc == ''){
+    if(name === '' || year === '' || cat === '' || desc === ''){
         newInLineAlert('Adj meg minden adatot!');
         return;
     } else if(!$.isNumeric(year)){
@@ -36,7 +36,7 @@ function addRace(){
             description: desc,
         },
         success: function(response) {
-            if(response.type == 'danger'){
+            if(response.type === 'danger'){
                 newInLineAlert(response.message, response.type);
             } else {
                 showRaces();

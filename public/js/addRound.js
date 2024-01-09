@@ -1,7 +1,7 @@
 let raceid;
 
 $('#roundName').keypress(function (e){
-    if(e.which == 13){
+    if(e.which === 13){
         addRound();
     }
 });
@@ -12,7 +12,7 @@ function getRaceId(id){
 
 function addRound(){
     const name = $('#roundName').val();
-    if(raceName == ''){
+    if(raceName === ''){
         newInLineAlert('Adj meg adatot!');
         return;
     }
@@ -29,7 +29,7 @@ function addRound(){
             race_id: raceid,
         },
         success: function(response) {
-            if(response.type == 'danger'){
+            if(response.type === 'danger'){
                 newInLineAlert(response.message, response.type);
             } else {
                 showRounds(raceid);
