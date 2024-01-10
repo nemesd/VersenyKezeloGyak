@@ -11,7 +11,7 @@ $.ajax({
     type: 'POST',
     url: '/loggedIn',
     success: function (data) {
-        if (data.success) {
+        if (data.name !== null) {
             loginDetails = {
                 'name': data.name,
                 'email': data.email,

@@ -6,6 +6,7 @@ function showRaces(){
         success: function (data) {
             if(data.races.length != 0){
                 racesDiv.empty();
+                $('#racesTitle').text('Versenyek:');
                 $.each(data.races, function (index, race) {
                     if(loginDetails['admin'] === 1){
                         racesDiv.append( // Admin versenyek kilistázásához a html kód

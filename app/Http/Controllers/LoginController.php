@@ -47,21 +47,14 @@ class LoginController extends Controller
     }
 
     public function loggedIn(Request $request){
-        if($request->cookie($request['name']) !== ''){
-            return response()->json([
-                'success' => true,
-                'name' => $request->cookie('name'),
-                'email' => $request->cookie('email'),
-                'birthyear' => $request->cookie('birthyear'),
-                'gender' => $request->cookie('gender'),
-                'admin' => $request->cookie('admin'),
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Nincs mentett felhasználó'
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'name' => $request->cookie('name'),
+            'email' => $request->cookie('email'),
+            'birthyear' => $request->cookie('birthyear'),
+            'gender' => $request->cookie('gender'),
+            'admin' => $request->cookie('admin'),
+        ]);
     }
 
     public function logOut(){
