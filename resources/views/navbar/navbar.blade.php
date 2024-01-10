@@ -1,7 +1,6 @@
 <nav class="navbar navbar-dark bg-dark mb-2">
     <div class="container-fluid">
         <div class="navbar-brand">Verseny Kezelő</div>
-
         <div class="nav-item" id="loggedOut">
             <input type="button" class="btn btn-primary" value="Bejelentkezés" data-bs-toggle="modal" data-bs-target="#loginModal">
         </div>

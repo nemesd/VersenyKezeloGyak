@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RaceController;
+use App\Models\Competitor;
+use App\Models\Race;
+use App\Models\Round;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { return view('main'); });
+Route::get('/', function () { return view('main', [
+    'races' => Race::all(),
+    'rounds' => Round::all(),
+    'competitors' => Competitor::all(),
+    'users' => User::all()
+]); });
 
 Route::get('/showRaces', [RaceController::class, 'showRaces']);
 Route::get('/showRounds/{raceid}', [RaceController::class, 'showRounds']);
@@ -28,6 +37,8 @@ Route::get('/infoRound/{roundid}', [RaceController::class, 'infoRound']);
 Route::get('/infoComp/{compid}', [RaceController::class, 'infoComp']);
 
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/loggedIn', [LoginController::class, 'loggedIn']);
+Route::post('/logOut', [LoginController::class, 'logOut']);
 
 Route::post('/addRace', [RaceController::class, 'addRace']);
 Route::post('/addRound', [RaceController::class, 'addRound']);

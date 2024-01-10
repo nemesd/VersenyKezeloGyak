@@ -6,13 +6,21 @@
 <body>
     @include('navbar/navbar')
     <div class="container">
-        <div id="newRaceBtn"></div>
-
+        @if(request()->cookie('admin') == 1)
+            <div id="newRaceBtn"><input type="button" value="Új verseny" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#raceModal"></div>
+        @else
+            <div id="newRaceBtn"></div>
+        @endif
         <div class="pt-2">
+            @if(count($races) == 0)
+            <h2 class="pb-2" id="racesTitle">Nincsenek versenyek felvéve!</h2>
+            @else
             <h2 class="pb-2" id="racesTitle">Versenyek:</h2>
+            @endif
             <ul class="list-group">
                 <div id="racesHere">
                     <!-- Versenyek helye -->
+                    @include('firstLoad/firstLoad')
                 </div>
             </ul>
         </div>

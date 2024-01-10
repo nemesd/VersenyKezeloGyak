@@ -1,21 +1,36 @@
 let loginDetails="";
 $('#emailLogin').val('');
 $('#pwdLogin').val('');
-if(getCookie('name') != ""){
-    $('#loggedOut').hide();
-    $('#loggedIn').show();
-    loginDetails = {
-        'name': getCookie('name'),
-        'email': getCookie('email'),
-        'birthyear': getCookie('birthyear'),
-        'gender': getCookie('gender'),
-        'admin': getCookie('admin')
+
+$.ajaxSetup({
+    headers: {
+       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-    $('#loggedOut').hide();
-    $('#loggedIn').show();
-    $('#userDetails').text(loginDetails.name);
-    admin();
-}
+});
+$.ajax({
+    type: 'POST',
+    url: '/loggedIn',
+    success: function (data) {
+        if (data.success) {
+            loginDetails = {
+                'name': data.name,
+                'email': data.email,
+                'birthyear': data.birthyear,
+                'gender': data.gender,
+                'admin': data.admin
+            };
+            $('#loggedOut').hide();
+            $('#loggedIn').show();
+            $('#userDetails').text(loginDetails['name']);
+        } else {
+            loginDetails = "";
+        }
+    },
+    error: function (error) {
+        console.log('AJAX error:', error);
+        newPopUpAlert('Hiba történt!', 'danger');
+    }
+});
 
 $('#emailLogin, #pwdLogin').keypress(function (e){
     if(e.which === 13){
@@ -58,18 +73,9 @@ function login(){
                     'name': data.name,
                     'email': data.email,
                     'birthyear': data.birthyear,
-                    'gender': data.name,
+                    'gender': data.gender,
                     'admin': data.admin
                 };
-
-                //Cookiek beálítása a user adatokkal
-                setCookie('name', data.name, 1);
-                setCookie('email', data.email, 1);
-                setCookie('birthyear', data.birthyear, 1);
-                setCookie('gender', data.gender, 1);
-                setCookie('admin', data.admin, 1);
-
-                
 
                 admin();
                 showRaces();
@@ -86,18 +92,30 @@ function login(){
 
 //Kijelentkezés
 function logout(){
+    $.ajaxSetup({
+        headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/logOut',
+        success: function (data) {
+            if (data.success) {
+                console.log('siker');
+            } else {
+                
+            }
+        },
+        error: function (error) {
+            console.log('AJAX error:', error);
+            newPopUpAlert('Hiba történt!', 'danger');
+        }
+    });
+
     $('#loggedOut').show();
     $('#loggedIn').hide();
-
-    //User adatok törlése a cookiekból
-    delCookie('name');
-    delCookie('email');
-    delCookie('birthyear');
-    delCookie('gender');
-    delCookie('admin');
     $('#newRace').empty();
-
-    //User adatok törlése a js változóból
     loginDetails="";
     admin();
 
@@ -108,7 +126,7 @@ function logout(){
 
 //Megnézi hogy admin e user és ha igen beépíti az admin által használható gombokat ha nem akkor eltávolítja
 function admin(){
-    if(getCookie('admin') === 1){
+    if(loginDetails['admin'] === 1){
         $('#newRaceBtn').append('<input type="button" value="Új verseny" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#raceModal">');
     } else {
         $('#newRaceBtn').empty();

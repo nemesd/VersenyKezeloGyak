@@ -1,4 +1,3 @@
-showRaces();
 function showRaces(){
     let racesDiv = $('#racesHere');
     $.ajax({
@@ -6,11 +5,10 @@ function showRaces(){
         url: '/showRaces/',
         success: function (data) {
             if(data.races.length != 0){
-                $('#racesTitle').show();
                 racesDiv.empty();
                 $.each(data.races, function (index, race) {
-                    if(getCookie('admin') === 1){
-                        racesDiv.append( // Versenyek kilistázásához a html kód
+                    if(loginDetails['admin'] === 1){
+                        racesDiv.append( // Admin versenyek kilistázásához a html kód
                             '<li class="list-group-item">'+
                             '<div class="row justify-content-between m-2">'+
                                 '<div class="col-8 race-li" id="race'+race.id+'">'+
