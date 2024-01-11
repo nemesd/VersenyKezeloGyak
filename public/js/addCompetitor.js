@@ -1,16 +1,12 @@
 let roundId;
 let compSelect = $('#competitors');
 
-function getRoundIdForNewComp(id){
-    roundId = id;
-    listCompetitors();
-}
-
 //Versenyzők kiválasztásához lista
-function listCompetitors(){
+function listCompetitors(round){
+    roundId = round;
     $.ajax({
         type: 'GET',
-        url: '/listComp/',
+        url: '/listComp/'+round,
         success: function (data) {
             compSelect.empty();
             $.each(data.users, function (index, user) {
@@ -43,7 +39,7 @@ function addCompetitor(){
             if(response.type === 'danger'){
                 newInLineAlert(response.message);
             } else {
-                showCompetitors(roundId);
+                showRaces();
                 $('#compModal').modal('hide');
                 newPopUpAlert(response.message);
             }

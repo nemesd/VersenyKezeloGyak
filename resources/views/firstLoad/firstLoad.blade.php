@@ -3,7 +3,7 @@
     <div class="row justify-content-between m-2">
         <div class="col-8 race-li" id="race{{$race->id}}">
             <div class="infoModal" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoRace({{$race->id}})">
-                {{$race->name}} ({{$race->year}})
+                {!!$race->name!!} ({!!$race->year!!})
             </div>
         </div>
         @if(request()->cookie('admin'))
@@ -15,11 +15,11 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-4 round-li infoModal" id="round{{$round->id}}" data-roundid="{{$round->id}}" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoRound({{$round->id}})">
-                        {{$round->name}}
+                        {!!$round->name!!}
                     </div>
                     <div class="col-4">
                         @if(request()->cookie('admin'))
-                            <input type="button" class="btn btn-primary mx-1" value="Új versenyző" data-bs-toggle="modal" data-bs-target="#compModal" onclick="getRoundIdForNewComp({{$round->id}})">
+                            <input type="button" class="btn btn-primary mx-1" value="Új versenyző" data-bs-toggle="modal" data-bs-target="#compModal" onclick="listCompetitors({{$round->id}})">
                         @endif
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                     @else
                                         <div class="comp-li infoModal" id="round{{$user->id}}" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoComp({{$user->id}})">
                                     @endif
-                                    {{$user->name}}
+                                    {!!$user->name!!}
                                     </div>
                                 </li>
                             @endif

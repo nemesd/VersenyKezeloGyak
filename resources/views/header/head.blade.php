@@ -10,8 +10,6 @@
 <script src="{{ asset('js/addRace.js') }}" defer></script>
 <script src="{{ asset('js/addRound.js') }}" defer></script>
 <script src="{{ asset('js/addCompetitor.js') }}" defer></script>
-<script src="{{ asset('js/showCompetitor.js') }}" defer></script>
-<script src="{{ asset('js/showRounds.js') }}" defer></script>
 <script src="{{ asset('js/showRaces.js') }}" defer></script>
 <script src="{{ asset('js/info.js') }}" defer></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">

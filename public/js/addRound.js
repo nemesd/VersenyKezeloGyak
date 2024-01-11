@@ -32,7 +32,7 @@ function addRound(){
             if(response.type === 'danger'){
                 newInLineAlert(response.message, response.type);
             } else {
-                showRounds(raceid);
+                showRaces();
                 $('#roundModal').modal('hide');
                 $('#roundName').val('');
                 newPopUpAlert(response.message);

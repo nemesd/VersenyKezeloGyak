@@ -22,8 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/', function () { return view('main'); });
 
 Route::get('/showRaces', [RaceController::class, 'showRaces']);
-Route::get('/showRounds/{raceid}', [RaceController::class, 'showRounds']);
-Route::get('/showComp/{roundid}', [RaceController::class, 'showComp']);
 
 Route::get('/listComp', [RaceController::class, 'listComp']);
 
@@ -32,7 +30,10 @@ Route::get('/infoRound/{roundid}', [RaceController::class, 'infoRound']);
 Route::get('/infoComp/{compid}', [RaceController::class, 'infoComp']);
 
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/loggedIn', [LoginController::class, 'loggedIn']);
+Route::post('/logOut', [LoginController::class, 'logOut']);
 
 Route::post('/addRace', [RaceController::class, 'addRace']);
 Route::post('/addRound', [RaceController::class, 'addRound']);
 Route::post('/addComp', [RaceController::class, 'addComp']);
+

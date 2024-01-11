@@ -58,7 +58,7 @@ class RaceController extends Controller
                 'race_id' => 'required',
             ]);
         } catch(Exception $e) {
-            return response()->json(['message' => 'Hibás adat', 'type' => 'danger']);
+            return response()->json(['message' => 'Már létezik vagy hibás adat', 'type' => 'danger']);
         }
         $roundData = [
             'name' => e($request->name),
@@ -70,63 +70,6 @@ class RaceController extends Controller
         } else {
             return response()->json(['message' => 'Fordulót nem sikerült felvenni CONTROLLER', 'type' => 'danger']);
         }
-    }
-
-    /**
-     * Összes forduló elküldése
-     * @return JsonResponse
-     */
-    public function showRounds(int $raceid) : JsonResponse {
-        $rounds = Round::where('race_id', $raceid)->get();
-        return response()->json(['rounds' => $rounds]);
-    }
-    
-    /**
-     * Összes felhasználó elküldése
-     * @return JsonResponse
-     */
-    public function listComp() : JsonResponse {
-        $users = User::orderBy('name')->get();
-        return response()->json(['users' => $users]);
-    }
-    
-    /**
-     * Összes verseny elküldése
-     * @return JsonResponse
-     */
-    public function showRaces() : JsonResponse {
-        $races = Race::all();
-        return response()->json(['races' => $races]);
-    }
-
-    /**
-     * Egy verseny elküldése
-     * @param int $raceId
-     * @return JsonResponse
-     */
-    public function infoRace(int $raceId) : JsonResponse {
-        $race = Race::find($raceId);
-        return response()->json(['race' => $race]);
-    }
-
-     /**
-     * Egy forduló elküldése
-     * @param int $roundId
-     * @return JsonResponse
-     */
-    public function infoRound(int $roundId) : JsonResponse {
-        $round = Round::find($roundId);
-        return response()->json(['round' => $round]);
-    }
-
-    /**
-    * Egy versenyző elküldése
-    * @param int $roundId
-    * @return JsonResponse
-    */
-    public function infoComp(int $compId) : JsonResponse {
-        $competitor = User::find($compId);
-        return response()->json(['competitor' => $competitor]);
     }
 
     /**
@@ -165,16 +108,52 @@ class RaceController extends Controller
     }
 
     /**
-     * Versenyzők elküldése egy adott fordulóhoz
-     * @param int $roundid
+     * Összes verseny adatot elküldi
      * @return JsonResponse
      */
-    public function showComp(int $roundid) : JsonResponse {
-        $round = Round::find($roundid);
-        $competitors = $round->competitors;
-        $users = $competitors->map(function ($competitor){
-            return User::find($competitor->user_id);
-        });
+    public function showRaces() : JsonResponse {
+        return response()->json(['races' => Race::all(), 'rounds' => Round::all(), 'comps' => Competitor::all(), 'users' => User::all()]);
+    }
+    
+    /**
+     * Összes felhasználó elküldése abc rendben
+     * @param int $roundId
+     * @return JsonResponse
+     */
+    public function listComp(int $roundId) : JsonResponse {
+        $users = User::whereDoesntHave('competitors', function ($query) use ($roundId) {
+            $query->where('round_id', $roundId);
+        })->orderBy('name')->get();
         return response()->json(['users' => $users]);
+    }
+    
+    /**
+     * Egy verseny elküldése
+     * @param int $raceId
+     * @return JsonResponse
+     */
+    public function infoRace(int $raceId) : JsonResponse {
+        $race = Race::find($raceId);
+        return response()->json(['race' => $race]);
+    }
+
+     /**
+     * Egy forduló elküldése
+     * @param int $roundId
+     * @return JsonResponse
+     */
+    public function infoRound(int $roundId) : JsonResponse {
+        $round = Round::find($roundId);
+        return response()->json(['round' => $round]);
+    }
+
+    /**
+    * Egy versenyző elküldése
+    * @param int $roundId
+    * @return JsonResponse
+    */
+    public function infoComp(int $compId) : JsonResponse {
+        $competitor = User::find($compId);
+        return response()->json(['competitor' => $competitor]);
     }
 }
