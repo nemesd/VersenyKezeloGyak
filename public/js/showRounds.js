@@ -7,7 +7,7 @@ function showRounds(raceid){
             if(data.rounds.length != 0){
                 roundsDiv.empty();
                 $.each(data.rounds, function (index, round) {
-                    if(loginDetails['admin'] === 1){
+                    if(parseInt(loginDetails['admin']) === 1){
                         roundsDiv.append( // Admin fordulók kilistázásához a html kód
                         '<li class="list-group-item">'+
                             '<div class="row">'+

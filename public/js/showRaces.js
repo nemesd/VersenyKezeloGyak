@@ -8,7 +8,7 @@ function showRaces(){
                 racesDiv.empty();
                 $('#racesTitle').text('Versenyek:');
                 $.each(data.races, function (index, race) {
-                    if(loginDetails['admin'] === 1){
+                    if(parseInt(loginDetails['admin']) === 1){
                         racesDiv.append( // Admin versenyek kilistázásához a html kód
                             '<li class="list-group-item">'+
                             '<div class="row justify-content-between m-2">'+

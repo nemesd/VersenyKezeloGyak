@@ -30,8 +30,13 @@ class RaceController extends Controller
         } catch(Exception $e) {
             return response()->json(['message' => 'Hibás adat vagy ilyen már van', 'type' => 'danger']);
         }
-
-        $race = Race::Create($request->all());
+        $raceData = [
+            'name' => e($request->name),
+            'year' => e($request->year),
+            'category' => e($request->category),
+            'description' => e($request->description)
+        ];
+        $race = Race::Create($raceData);
         if($race){
             return response()->json(['message' => 'Verseny sikeresen hozzáadva']);
         } else {
@@ -55,9 +60,12 @@ class RaceController extends Controller
         } catch(Exception $e) {
             return response()->json(['message' => 'Hibás adat', 'type' => 'danger']);
         }
-
-        $race = Round::Create($request->all());
-        if($race){
+        $roundData = [
+            'name' => e($request->name),
+            'race_id' => e($request->race_id)
+        ];
+        $round = Round::Create($roundData);
+        if($round){
             return response()->json(['message' => 'Forduló sikeresen hozzáadva']);
         } else {
             return response()->json(['message' => 'Fordulót nem sikerült felvenni CONTROLLER', 'type' => 'danger']);
