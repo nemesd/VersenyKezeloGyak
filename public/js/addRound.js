@@ -1,6 +1,6 @@
 let raceid;
 
-$('#roundName').keypress(function (e){
+$('#roundName').keypress(function (e){ // Enter gombal elküldés
     if(e.which === 13){
         addRound();
     }

@@ -1,5 +1,5 @@
 let roundId;
-let compSelect = $('#competitors');
+const compSelect = $('#competitors');
 
 //Versenyzők kiválasztásához lista
 function listCompetitors(round){

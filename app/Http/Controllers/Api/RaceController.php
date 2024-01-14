@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Exception;
 use App\Models\Race;
@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Competitor;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class RaceController extends Controller
 {
@@ -108,11 +109,16 @@ class RaceController extends Controller
     }
 
     /**
-     * Összes verseny adatot elküldi
+     * Összes szükséges verseny adatot elküldi
      * @return JsonResponse
      */
     public function showRaces() : JsonResponse {
-        return response()->json(['races' => Race::all(), 'rounds' => Round::all(), 'comps' => Competitor::all(), 'users' => User::all()]);
+        return response()->json([
+            'races' => Race::select('id', 'name', 'year')->orderBy('id')->get(),
+            'rounds' => Round::select('id', 'name', 'race_id')->orderBy('id')->get(),
+            'comps' => Competitor::select('user_id', 'round_id')->orderBy('created_at')->get(),
+            'users' => User::select('id', 'name')->get()
+        ]);
     }
     
     /**

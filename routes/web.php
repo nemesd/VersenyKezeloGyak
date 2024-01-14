@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RaceController;
+use App\Http\Controllers\Web\RaceController;
 use App\Models\Competitor;
 use App\Models\Race;
 use App\Models\Round;
 use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +24,9 @@ Route::get('/', function () { return view('main', [
     'races' => Race::all(),
     'rounds' => Round::all(),
     'competitors' => Competitor::all(),
-    'users' => User::all()
+    'users' => User::all(),
+    'admin' => User::where('id', Cookie::get('user'))->first()->admin,
+    'name' => User::where('id', Cookie::get('user'))->first()->name
 ]); });
 
 Route::get('/showRaces', [RaceController::class, 'showRaces']);

@@ -3,32 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
 
-    //Bejelentkezés
-    public function login(Request $request)
-    {
+    /**
+     * Bejelentkezéshez authetnikáció és user adatok visszaküldése.
+     * Vár emailt és jelszót majd ellenőrzi.
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function login(Request $request) : JsonResponse {
         $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|string',
+            'password' => 'required|string',
         ]);
 
         $user = User::where('email', $request['email'])->first(); //Adatbázisból kikeresés
-        
-        $cookie = cookie('admin', 1, 120);
-
 
         if($user && password_verify($request['password'], $user->password)){ //Jelszó egyeztetés
 
-            Cookie::queue(Cookie::make('name', $user->name, 120));
-            Cookie::queue(Cookie::make('email', $user->email, 120));
-            Cookie::queue(Cookie::make('birthyear', $user->birthyear, 120));
-            Cookie::queue(Cookie::make('gender', $user->gender, 120));
-            Cookie::queue(Cookie::make('admin', $user->admin, 120));
+            Cookie::queue(Cookie::make('user', $user->id, 120)); //User id cookie elmentése
 
             return response()->json([
                 'success' => true,
@@ -45,24 +43,37 @@ class LoginController extends Controller
             ]);
         }
     }
-
-    public function loggedIn(Request $request){
+    
+    /**
+     * Megnézi hogy a cookieban van e tárolva user (azaz már volt bejelentkezve) akkor visszaküldi a user adatait ha nem akkor semmit.
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function loggedIn(Request $request) : JsonResponse {
+        $user = User::where('id', $request->cookie('user'))->first(); //User kikeresése az adatbázisból
+        if($user){
+            return response()->json([
+                'success' => true,
+                'name' => $user->name,
+                'email' => $user->email,
+                'birthyear' => $user->birthyear,
+                'gender' => $user->gender,
+                'admin' => $user->admin,
+            ]);
+        }
         return response()->json([
-            'success' => true,
-            'name' => $request->cookie('name'),
-            'email' => $request->cookie('email'),
-            'birthyear' => $request->cookie('birthyear'),
-            'gender' => $request->cookie('gender'),
-            'admin' => $request->cookie('admin'),
+            'success' => false,
         ]);
-    }
 
-    public function logOut(){
-        Cookie::queue(Cookie::forget('name'));
-        Cookie::queue(Cookie::forget('email'));
-        Cookie::queue(Cookie::forget('birthyear'));
-        Cookie::queue(Cookie::forget('gender'));
-        Cookie::queue(Cookie::forget('admin'));
+    }
+    
+    /**
+     * Kijelentkezéskor kitörli a cookiet.
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logOut() : JsonResponse {
+        Cookie::queue(Cookie::forget('user')); //User id kitörlése a cookiekból
         return response()->json(['Törölve']);
     }
 }

@@ -6,7 +6,7 @@
 <body>
     @include('navbar/navbar')
     <div class="container">
-        @if(request()->cookie('admin') == 1)
+        @if($admin == 1)
             <div id="newRaceBtn"><input type="button" value="Új verseny" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#raceModal"></div>
         @else
             <div id="newRaceBtn"></div>

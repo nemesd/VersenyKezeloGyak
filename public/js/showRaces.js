@@ -1,5 +1,5 @@
 function showRaces() {
-    let racesDiv = $('#racesHere');
+    const racesDiv = $('#racesHere');
 
     $.ajax({
         type: 'GET',
@@ -10,7 +10,7 @@ function showRaces() {
                 $('#racesTitle').text('Versenyek:');
 
                 $.each(data.races, function(index, race) {
-                    let isAdmin = parseInt(loginDetails['admin']) === 1;
+                    const isAdmin = parseInt(loginDetails['admin']) === 1;
 
                     racesDiv.append(buildRaceItem(race, isAdmin));
                     showRoundsAndCompetitors(data, race, isAdmin);
@@ -44,7 +44,7 @@ function buildRaceItem(race, isAdmin) {
 function showRoundsAndCompetitors(data, race, isAdmin) {
     $.each(data.rounds, function(index, round) {
         if (round.race_id === race.id) {
-            let roundsDiv = $(`#roundsOf${race.id}`);
+            const roundsDiv = $(`#roundsOf${race.id}`);
             roundsDiv.append(buildRoundItem(round, isAdmin));
 
             $.each(data.comps, function(index, comp) {
@@ -80,7 +80,7 @@ function buildRoundItem(round, isAdmin) {
 }
 
 function buildCompetitorItem(user, isAdmin) {
-    let compClass = (loginDetails['name'] === user.name) ? 'text-primary' : '';
+    const compClass = (loginDetails['name'] === user.name) ? 'text-primary' : '';
     return `
         <li class="list-group-item">
             <div class="comp-li infoModal ${compClass}" id="round${user.id}" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="infoComp(${user.id})">

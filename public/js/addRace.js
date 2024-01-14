@@ -1,4 +1,4 @@
-$('#raceName, #raceYear, #raceCat, #raceDesc').keypress(function (e){
+$('#raceName, #raceYear, #raceCat, #raceDesc').keypress(function (e){ // Enter gombal elküldés
     if(e.which === 13){
         addRace();
     }

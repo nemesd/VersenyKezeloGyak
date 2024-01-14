@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,10 +14,10 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        \App\Models\User::factory(10)->create();
+        User::factory(10)->create();
 
         // Admin user
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
@@ -27,7 +28,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Fix normal user
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'name' => 'Nagy Béla',
             'email' => 'user@user.com',
             'email_verified_at' => now(),

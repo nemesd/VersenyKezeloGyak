@@ -11,7 +11,7 @@ $.ajax({
     type: 'POST',
     url: '/loggedIn',
     success: function (data) {
-        if (data.name !== null) {
+        if (data.success) {
             loginDetails = {
                 'name': data.name,
                 'email': data.email,
@@ -32,12 +32,13 @@ $.ajax({
     }
 });
 
-$('#emailLogin, #pwdLogin').keypress(function (e){
+$('#emailLogin, #pwdLogin').keypress(function (e){ // Enter gombal elküldés
     if(e.which === 13){
         login();
     }
 });
 
+// Bejelentkezés kezelése
 function login(){
     let email = $('#emailLogin').val();
     let pwd = $('#pwdLogin').val();
@@ -59,7 +60,6 @@ function login(){
         },
         success: function (data) {
             if (data.success) {
-                // Handle successful login and display account details
                 $('#loginModal').modal('hide');
                 $('#emailLogin').val('');
                 $('#pwdLogin').val('');
