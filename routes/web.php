@@ -20,14 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { return view('main', [
-    'races' => Race::all(),
-    'rounds' => Round::all(),
-    'competitors' => Competitor::all(),
-    'users' => User::all(),
-    'admin' => User::where('id', Cookie::get('user'))->first()->admin,
-    'name' => User::where('id', Cookie::get('user'))->first()->name
-]); });
+Route::get('/', function () { 
+    $user = User::where('id', Cookie::get('user'))->first();
+
+    return view('main', [
+        'races' => Race::all(),
+        'rounds' => Round::all(),
+        'competitors' => Competitor::all(),
+        'users' => User::all(),
+        'admin' => $user ? $user->admin : '0',
+        'name' => $user ? $user->name : '',
+    ]); 
+});
 
 Route::get('/showRaces', [RaceController::class, 'showRaces']);
 
